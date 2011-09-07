@@ -1,0 +1,76 @@
+.\"
+.\" Author: Joao Marcelo Martins <marcelo.martins@rackspace.com> or <btorch@gmail.com>
+.\" Copyright (c) 2010-2011 OpenStack, LLC.
+.\"
+.\" Licensed under the Apache License, Version 2.0 (the "License");
+.\" you may not use this file except in compliance with the License.
+.\" You may obtain a copy of the License at
+.\"
+.\"    http://www.apache.org/licenses/LICENSE-2.0
+.\"
+.\" Unless required by applicable law or agreed to in writing, software
+.\" distributed under the License is distributed on an "AS IS" BASIS,
+.\" WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+.\" implied.
+.\" See the License for the specific language governing permissions and
+.\" limitations under the License.
+.\"  
+.TH swift-container-updater 1 "8/26/2011" "Linux" "OpenStack Swift"
+
+.SH NAME 
+.LP
+.B swift-container-updater
+\- Openstack-swift container updater
+
+.SH SYNOPSIS
+.LP
+.B swift-container-updater 
+[CONFIG] [-h|--help] [-v|--verbose] [-o|--once]
+
+.SH DESCRIPTION 
+.PP
+There are times when container or account data can not be immediately updated. 
+This usually occurs during failure scenarios or periods of high load. If an 
+update fails, the update is queued locally on the filesystem, and the updater
+will process the failed updates. This is where an eventual consistency window
+will most likely come in to play. For example, suppose a container server is 
+under load and a new object is put in to the system. The object will be 
+immediately available for reads as soon as the proxy server responds to the 
+client with success. However, the container server did not update the object 
+listing, and so the update would be queued for a later update. Container listings,
+therefore, may not immediately contain the object.
+
+.PPIn practice, the consistency window is only as large as the frequency at which 
+the updater runs and may not even be noticed as the proxy server will route 
+listing requests to the first container server which responds. The server under
+load may not be the one that serves subsequent listing requests – one of the other
+two replicas may handle the listing.
+
+The options are as follows:
+
+    -v
+    --verbose
+    		log to console
+    		    
+    -o
+    --once
+     	only run one pass of daemon
+   
+.SH DOCUMENTATION
+.LP
+More indepth documentation in regards to 
+.BI swift-container-updater
+and also about Openstack-Swift as a whole can be found at 
+.BI http://swift.openstack.org/index.html
+
+.SH FILES
+.IP "\fI/usr/share/doc/swift-container/container-server.conf-sample\fR" 4
+Sample configuration file for swift-container services 
+.IP "\fI/etc/init.d/swift-container-updater\fR" 4
+Container updater init.d script	
+
+.SH AUTHOR
+Originally written by Joao Marcelo Martins <btorch@gmail.com>
+
+.SH "SEE ALSO"
+.BR container-server.conf(5)
