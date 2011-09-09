@@ -1,0 +1,75 @@
+.\"
+.\" Author: Joao Marcelo Martins <marcelo.martins@rackspace.com> or <btorch@gmail.com>
+.\" Copyright (c) 2010-2011 OpenStack, LLC.
+.\"
+.\" Licensed under the Apache License, Version 2.0 (the "License");
+.\" you may not use this file except in compliance with the License.
+.\" You may obtain a copy of the License at
+.\"
+.\"    http://www.apache.org/licenses/LICENSE-2.0
+.\"
+.\" Unless required by applicable law or agreed to in writing, software
+.\" distributed under the License is distributed on an "AS IS" BASIS,
+.\" WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+.\" implied.
+.\" See the License for the specific language governing permissions and
+.\" limitations under the License.
+.\"  
+.TH swift-get-nodes 1 "8/26/2011" "Linux" "OpenStack Swift"
+
+.SH NAME 
+.LP
+.B swift-get-nodes
+\- Openstack-swift get-nodes tool
+
+.SH SYNOPSIS
+.LP
+.B swift-get-nodes
+ <ring.gz> <account> [<container>] [<object>]
+ 
+.SH DESCRIPTION 
+.PP
+The swift-get-nodes tool can be used to find out the location where
+a particular account, container or object item is located within the 
+swift cluster nodes. For example, if you have the account hash and a container 
+name that belongs to that account, you can use swift-get-nodes to lookup 
+where the container resides by using the container ring.
+.PP
+.RS 2
+Example:
+.RS 2
+$ swift-get-nodes /etc/swift/account.ring.gz MyAccount
+
+.RS 2
+Account     MyAccount
+.RS 0
+Container   None
+.RS 0
+Object      None
+
+.RS 0
+Partition 5743883
+.RS 0
+Hash 96ae332a60b58910784e4417a03e1ad0
+
+.RS 0
+10.1.1.7:8000 sdd1
+.RS 0
+10.1.9.2:8000 sdb1
+.RS 0
+10.1.5.5:8000 sdf1
+.RS 0
+10.1.5.9:8000 sdt1 # [Handoff]
+
+
+.SH DOCUMENTATION
+.LP
+More documentation about Openstack-Swift can be found at 
+.BI http://swift.openstack.org/index.html
+
+.SH AUTHOR
+Originally written by Joao Marcelo Martins <btorch@gmail.com>
+
+.SH "SEE ALSO"
+.BR swift-object-info(1),
+.BR swift-ring-builder(1)
