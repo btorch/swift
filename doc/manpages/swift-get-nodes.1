@@ -24,8 +24,8 @@
 
 .SH SYNOPSIS
 .LP
-.B swift-get-nodes
- <ring.gz> <account> [<container>] [<object>]
+.B swift-get-nodes 
+\ <ring.gz> <account> [<container>] [<object>]
  
 .SH DESCRIPTION 
 .PP
@@ -34,33 +34,37 @@ a particular account, container or object item is located within the
 swift cluster nodes. For example, if you have the account hash and a container 
 name that belongs to that account, you can use swift-get-nodes to lookup 
 where the container resides by using the container ring.
-.PP
-.RS 2
-Example:
-.RS 2
-$ swift-get-nodes /etc/swift/account.ring.gz MyAccount
-
-.RS 2
-Account     MyAccount
-.RS 0
-Container   None
-.RS 0
-Object      None
 
 .RS 0
-Partition 5743883
-.RS 0
-Hash 96ae332a60b58910784e4417a03e1ad0
+.IP "\fIExample:\fR"
+.RE
 
-.RS 0
-10.1.1.7:8000 sdd1
-.RS 0
-10.1.9.2:8000 sdb1
-.RS 0
-10.1.5.5:8000 sdf1
-.RS 0
-10.1.5.9:8000 sdt1 # [Handoff]
+.RS 4
+.PD 0 
+.IP "$ swift-get-nodes /etc/swift/account.ring.gz MyAccount-12ac01446be2"
 
+.PD 0
+.IP "Account     MyAccount-12ac01446be2"
+.IP "Container   None"
+.IP "Object      None"
+
+.IP "Partition 221082"
+.IP "Hash d7e6ba68cfdce0f0e4ca7890e46cacce"
+
+.IP "Server:Port Device      172.24.24.29:6002 sdd"
+.IP "Server:Port Device      172.24.24.27:6002 sdr"
+.IP "Server:Port Device      172.24.24.32:6002 sde"
+.IP "Server:Port Device      172.24.24.26:6002 sdv    [Handoff]"
+
+.IP "curl -I -XHEAD http://172.24.24.29:6002/sdd/221082/MyAccount-12ac01446be2"
+.IP "curl -I -XHEAD http://172.24.24.27:6002/sdr/221082/MyAccount-12ac01446be2"
+.IP "curl -I -XHEAD http://172.24.24.32:6002/sde/221082/MyAccount-12ac01446be2"
+.IP "curl -I -XHEAD http://172.24.24.26:6002/sdv/221082/MyAccount-12ac01446be2 # [Handoff]"
+
+.IP "ssh 172.24.24.29 ls -lah /srv/node/sdd/accounts/221082/cce/d7e6ba68cfdce0f0e4ca7890e46cacce/ "
+.IP "ssh 172.24.24.27 ls -lah /srv/node/sdr/accounts/221082/cce/d7e6ba68cfdce0f0e4ca7890e46cacce/".IP "ssh 172.24.24.32 ls -lah /srv/node/sde/accounts/221082/cce/d7e6ba68cfdce0f0e4ca7890e46cacce/".IP "ssh 172.24.24.26 ls -lah /srv/node/sdv/accounts/221082/cce/d7e6ba68cfdce0f0e4ca7890e46cacce/ # [Handoff] "
+.PD 
+.RE 
 
 .SH DOCUMENTATION
 .LP

@@ -41,16 +41,15 @@ several types of operations.
 Displays information for the account, container, or object depending on the args given (if any).
 .RE
 
-\fBlist\fR [\fIoptions\fR] [\fIcontainer\fR]
+\fBlist\fR [\fIcommand-options\fR] [\fIcontainer\fR]
 .RS 4
-Lists the containers for the account or the objects for a container. 
-The -p or --prefix is an option that will only list items beginning 
+Lists the containers for the account or the objects for a container. The -p or --prefix is an option that will only list items beginning 
 with that prefix. The -d or --delimiter is option (for container listings only) 
 that will roll up items with the given delimiter (see Cloud Files general 
 documentation for what this means).
 .RE    
 
-\fBupload\fR [\fIoptions\fR] container file_or_directory [\fIfile_or_directory\fR] [...]
+\fBupload\fR [\fIcommand-options\fR] container file_or_directory [\fIfile_or_directory\fR] [...]
 .RS 4
 Uploads to the given container the files and directories specified by the 
 remaining args. The -c or --changed is an option that will only upload files 
@@ -58,7 +57,7 @@ that have changed since the last upload. The -S <size> or --segment-size <size>
 and --leave-segments are options as well (see --help for more).
 .RE
 
-\fBpost\fR [\fIoptions\fR] [\fIcontainer\fR] [\fIobject\fR]
+\fBpost\fR [\fIcommand-options\fR] [\fIcontainer\fR] [\fIobject\fR]
 .RS 4
 Updates meta information for the account, container, or object depending
 on the args given. If the container is not found, it will be created
@@ -69,7 +68,7 @@ items to set in the form Name:Value. This option can be repeated.
 \fBExample\fR: post -m Color:Blue -m Size:Large
 .RE    
     
-\fBdownload\fR --all OR download container [\fIoptions\fR] [\fIobject\fR] [\fIobject\fR] ...
+\fBdownload\fR [\fIcommand-options\fR] [\fIcontainer\fR] [\fIobject\fR] [\fIobject\fR] [...]
 .RS 4
 Downloads everything in the account (with --all), or everything in a
 container, or a list of objects depending on the args given. For a single
@@ -77,7 +76,7 @@ object download, you may use the -o [--output] <filename> option to
 redirect the output to a specific file or if "-" then just redirect to stdout.
 .RE
 
-\fBdelete\fR --all OR delete container [\fI--leave-segments\fR] [\fIobject\fR] [\fIobject\fR] ...
+\fBdelete\fR [\fIcommand-options\fR] [\fIcontainer\fR] [\fIobject\fR] [\fIobject\fR] [...]
 .RS 4
 Deletes everything in the account (with --all), or everything in a container,
 or a list of objects depending on the args given. Segments of manifest objects

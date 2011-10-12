@@ -36,98 +36,79 @@ just one swift service, such as the "proxy", or a combination of them. The tool 
 allows one to use the keywords such as "all", "main" and "rest" for the <server> argument.
 
 
-.PP
 \fBServers:\fR
-.RS 2
-\fIproxy\fR
-.RS
-Initializes the swift proxy daemon
+
+.PD 0
+.RS 4
+.IP "\fIproxy\fR" "4"
+.IP "    - Initializes the swift proxy daemon" 
 .RE
 
-\fIobject\fR, \fIobject-replicator\fR, 
-\fIobject-auditor\fR, \fIobject-updater\fR
-.RS
-Initialize the swift object daemons above
+.RS 4
+.IP "\fIobject\fR, \fIobject-replicator\fR, \fIobject-auditor\fR, \fIobject-updater\fR"
+.IP "    - Initialize the swift object daemons above"
 .RE
 
-\fIcontainer\fR, \fIcontainer-update\fR, 
-\fIcontainer-replicator\fR, \fIcontainer-auditor\fR
-.RS
-Initialize the swift container daemons above
+.RS 4
+.IP "\fIcontainer\fR, \fIcontainer-update\fR, \fIcontainer-replicator\fR, \fIcontainer-auditor\fR"
+.IP "    - Initialize the swift container daemons above"
 .RE
 
-\fIaccount\fR, \fIaccount-auditor\fR, 
-\fIaccount-reaper\fR, \fIaccount-replicator\fR, 
-.RS
-Initializes the swift account daemons above
+.RS 4
+.IP "\fIaccount\fR, \fIaccount-auditor\fR, \fIaccount-reaper\fR, \fIaccount-replicator\fR"
+.IP "    - Initializes the swift account daemons above"
 .RE
 
-\fIall\fR
-.RS
-Initializes \fBall\fR the swift daemons
+.RS 4
+.IP "\fIall\fR"
+.IP "    - Initializes \fBall\fR the swift daemons"
 .RE
 
-\fImain\fR
-.RS
-Initializes all the \fBmain\fR swift daemons (proxy,container,account and object servers)
+.RS 4
+.IP "\fImain\fR"
+.IP "    - Initializes all the \fBmain\fR swift daemons "
+.IP "      (proxy, container, account and object servers)"
 .RE
 
-\fIrest\fR
-.RS
-Initializes all the other \fBswift background daemons\fR such as (updater, replicator,auditor,reaper)
+.RS 4
+.IP "\fIrest\fR"
+.IP "    - Initializes all the other \fBswift background daemons\fR such as"
+.IP "      (updater, replicator, auditor, reaper)"
 .RE
+.PD 
 
-.RE
 
-
-.PP 
 \fBCommands:\fR
-.RS 2
-\fIforce-reload\fR:   alias for reload
 
-\fIno-daemon\fR:   start a server interactively
-
-\fIno-wait\fR:   spawn server and return immediately
-
-\fIonce\fR:   start server and run one pass on supporting daemons
-
-\fIreload\fR:   graceful shutdown then restart on supporting servers
-
-\fIrestart\fR:   stops then restarts server
-
-\fIshutdown\fR:   allow current requests to finish on supporting servers
-\fIstart\fR:   starts a server
-
-\fIstatus\fR:   display status of tracked pids for server
-
-\fIstop\fR:   stops a server
+.RS 4
+.PD 0
+.IP "\fIforce-reload\fR: \t\t alias for reload"
+.IP "\fIno-daemon\fR: \t\t start a server interactively"
+.IP "\fIno-wait\fR: \t\t\t spawn server and return immediately"
+.IP "\fIonce\fR: \t\t\t start server and run one pass on supporting daemons"
+.IP "\fIreload\fR: \t\t\t graceful shutdown then restart on supporting servers"
+.IP "\fIrestart\fR: \t\t\t stops then restarts server"
+.IP "\fIshutdown\fR: \t\t allow current requests to finish on supporting servers"
+.IP "\fIstart\fR: \t\t\t starts a server"
+.IP "\fIstatus\fR: \t\t\t display status of tracked pids for server"
+.IP "\fIstop\fR: \t\t\t stops a server"
+.PD 
 .RE
 
 
-.PP 
+
 \fBOptions:\fR
-.RS 2
--h, --help            show this help message and exit
-.RE	
-.RS 2
--v, --verbose         display verbose output
+.RS 4
+.PD 0 
+.IP "-h, --help \t\t\t show this help message and exit"
+.IP "-v, --verbose \t\t\t display verbose output"
+.IP "-w, --no-wait \t\t\t won't wait for server to start before returning
+.IP "-o, --once \t\t\t only run one pass of daemon
+.IP "-n, --no-daemon \t\t start server interactively
+.IP "-g, --graceful \t\t send SIGHUP to supporting servers
+.IP "-c N, --config-num=N \t send command to the Nth server only
+.PD 
 .RE
-.RS 2
--w, --no-wait         won't wait for server to start before returning
-.RE  
-.RS 2
--o, --once            only run one pass of daemon
-.RE
-.RS 2
--n, --no-daemon       start server interactively
-.RE  
-.RS 2
--g, --graceful        send SIGHUP to supporting servers
-.RE 
-.RS 2
--c N, --config-num=N  send command to the Nth server only
-.RE
-
 
 
 .SH DOCUMENTATION

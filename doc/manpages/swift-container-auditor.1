@@ -29,7 +29,7 @@
 
 .SH DESCRIPTION 
 .PP
-The container Auditor basically crawls the local container system checking the integrity 
+The Container Auditor basically crawls the local container system checking the integrity 
 of container objects. If corruption is found (in the case of bit rot, for example), the
 file is quarantined, and replication will replace the bad file from another replica.
 If other errors are found they are logged and a good replica also retrieved by replication.
@@ -37,13 +37,21 @@ For example, an object's listing can't be found on any container server it shoul
 
 The options are as follows:
 
-    -v
-    --verbose
-    		log to console
-    
-    -o
-    --once
-     	only run one pass of daemon
+.RS 4
+.PD 0
+.IP "-v"
+.IP "--verbose"
+.RS 4
+.IP "log to console"
+.RE
+.IP "-o"
+.IP "--once"
+.RS 4
+.IP "only run one pass of daemon" 
+.RE
+.PD      	
+.RE
+     	
     
 .SH DOCUMENTATION
 .LP
@@ -53,9 +61,10 @@ and also about Openstack-Swift as a whole can be found at
 .BI http://swift.openstack.org/index.html
 
 .SH FILES
-.IP "\fI/usr/share/doc/swift-account/container-server.conf-sample\fR" 4
+.IP "\fI/usr/share/doc/swift-account/container-server.conf-sample\fR" 0
 Sample configuration file for swift-container services 
-.IP "\fI/etc/init.d/swift-container-auditor\fR" 4
+
+.IP "\fI/etc/init.d/swift-container-auditor\fR" 0
 Container auditor init.d script	
 
 .SH AUTHOR
