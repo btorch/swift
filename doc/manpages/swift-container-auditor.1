@@ -29,11 +29,10 @@
 
 .SH DESCRIPTION 
 .PP
-The Container Auditor basically crawls the local container system checking the integrity 
-of container objects. If corruption is found (in the case of bit rot, for example), the
-file is quarantined, and replication will replace the bad file from another replica.
-If other errors are found they are logged and a good replica also retrieved by replication.
-For example, an object's listing can't be found on any container server it should be.
+
+The container auditor crawls the local container system checking the integrity of container 
+objects. If corruption is found (in the case of bit rot, for example), the file is 
+quarantined, and replication will replace the bad file from another replica.
 
 The options are as follows:
 

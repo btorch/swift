@@ -29,20 +29,17 @@
 
 .SH DESCRIPTION 
 .PP
-There are times when container or account data can not be immediately updated. 
-This usually occurs during failure scenarios or periods of high load. If an 
-update fails, the update is queued locally on the filesystem, and the updater
-will process the failed updates. This is where an eventual consistency window
-will most likely come in to play. For example, suppose a container server is 
-under load and a new object is put in to the system. The object will be 
-immediately available for reads as soon as the proxy server responds to the 
-client with success. However, the container server did not update the object 
-listing, and so the update would be queued for a later update. Container listings,
-therefore, may not immediately contain the object.
+The container updater is responsible for updating container information in the account database. 
+It will walk the container path in the system looking for container DBs and sending updates
+to the account server as needed as it goes along. 
 
-In practice, the consistency window is only as large as the frequency at which 
+There are times when account data can not be immediately updated. This usually occurs 
+during failure scenarios or periods of high load. This is where an eventual consistency 
+window will most likely come in to play. 
+
+In practice, the consistency window is only as large as the frequency at which 
 the updater runs and may not even be noticed as the proxy server will route 
-listing requests to the first container server which responds. The server under
+listing requests to the first account server which responds. The server under
 load may not be the one that serves subsequent listing requests – one of the other
 two replicas may handle the listing.
 
