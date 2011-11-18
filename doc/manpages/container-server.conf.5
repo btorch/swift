@@ -15,28 +15,28 @@
 .\" See the License for the specific language governing permissions and
 .\" limitations under the License.
 .\"  
-.TH account-server.conf 5 "8/26/2011" "Linux" "OpenStack Swift"
+.TH container-server.conf 5 "8/26/2011" "Linux" "OpenStack Swift"
 
 .SH NAME 
 .LP
-.B account-server.conf
-\- configuration file for the openstack-swift account server 
+.B container-server.conf
+\- configuration file for the openstack-swift container server 
 
 
 
 .SH SYNOPSIS
 .LP
-.B account-server.conf
+.B container-server.conf
 
 
 
 .SH DESCRIPTION 
 .PP
-This is the configuration file used by the account server and other account 
-background services, such as; replicator, auditor and reaper. 
+This is the configuration file used by the container server and other container 
+background services, such as; replicator, updater, auditor and sync. 
 
 The configuration file follows the python-pastedeploy syntax. The file is divided
-into sections, which are encloused by square brackets. Each section will contain a 
+into sections, which are enclosed by square brackets. Each section will contain a 
 certain number of key/value parameters which are described later. 
 
 Any line that begins with a '#' symbol is ignored. 
@@ -53,16 +53,16 @@ This is indicated by section named [DEFAULT]. Below are the parameters that
 are acceptable within this section. 
 
 .IP "\fBbind_ip\fR"
-IP address the account server should bind to. The default is 0.0.0.0 which will make 
-it bind to all avaible addresses.
+IP address the container server should bind to. The default is 0.0.0.0 which will make 
+it bind to all available addresses.
 .IP "\fBbind_port\fR" 
-TCP port the account server should bind to. The default is 6002. 
+TCP port the container server should bind to. The default is 6001. 
 .IP \fBbacklog\fR 
 TCP backlog.  Maximum number of allowed pending connections. The default value is 4096. 
 .IP \fBworkers\fR 
-Number of account server workers to fork. The default is 1. 
+Number of container server workers to fork. The default is 1. 
 .IP \fBuser\fR 
-The system user that the account server will run as. The default is swift. 
+The system user that the container server will run as. The default is swift. 
 .IP \fBswift_dir\fR 
 Swift configuration directory. The default is /etc/swift.
 .IP \fBdevices\fR 
@@ -88,9 +88,9 @@ This is indicated by section name [pipeline:main]. Below are the parameters that
 are acceptable within this section. 
 
 .IP "\fBpipeline\fR"
-It is used when you need apply a number of filters. It is a list of filters 
-ended by an application. The default should be "healthcheck 
-account-server"
+It is used when you need to apply a number of filters. It is a list of filters 
+ended by an application. The default should be \fB"healthcheck 
+container-server"\fR
 .RE
 .PD
 
@@ -99,19 +99,23 @@ account-server"
 .SH APP SECTION
 .PD 1 
 .RS 0
-This is indicated by section name [app:account-server]. Below are the parameters
+This is indicated by section name [app:container-server]. Below are the parameters
 that are acceptable within this section.
 .IP "\fBuse\fR"
-Entry point for paste.deploy for the account server. This is the egg URI. The default
-is \fBegg:swift#account\fR.
+Entry point for paste.deploy for the container server. This is the reference to the installed python egg. 
+The default is \fBegg:swift#container\fR.
 .IP "\fBset log_name\fR 
-Label used when logging. The default is account-server.
+Label used when logging. The default is container-server.
 .IP "\fBset log_facility\fR 
 Syslog log facility. The default is LOG_LOCAL0.
 .IP "\fB set log_level\fR 
 Logging level. The default is INFO.
 .IP "\fB set log_requests\fR 
 Enables request logging. The default is True.
+.IP \fBnode_timeout\fR 
+Request timeout to external services. The default is 3 seconds. 
+.IP \fBconn_timeout\fR 
+Connection timeout to external services. The default is 0.5 seconds. 
 .RE
 .PD
 
@@ -122,13 +126,13 @@ Enables request logging. The default is True.
 .RS 0
 Any section that has its name prefixed by "filter:" indicates a filter section.
 Filters are used to specify configuration parameters for specific swift middlewares.
-Below are the filters avaiable and respective acceptable parameters. 
+Below are the filters available and respective acceptable parameters. 
 .IP "\fB[filter:healthcheck]\fR"
 .RE
 .RS 3
 .IP "\fBuse\fR"
-Entry point for paste.deploy for the healthcheck middleware. This is the egg URI. The default
-is \fBegg:swift#healthcheck\fR.
+Entry point for paste.deploy for the healthcheck middleware. This is the reference to the installed python egg. 
+The default is \fBegg:swift#healthcheck\fR.
 .RE
 .PD
 
@@ -137,17 +141,17 @@ is \fBegg:swift#healthcheck\fR.
 .SH ADDITIONAL SECTIONS
 .PD 1
 .RS 0
-The following sections are used by other swift-account services, such as replicator,
-auditor and reaper.
-.IP "\fB[account-replicator]\fR"
+The following sections are used by other swift-container services, such as replicator,
+updater, auditor and sync.
+.IP "\fB[container-replicator]\fR"
 .RE
 .RS 3
 .IP \fBlog_name\fR 
-Label used when logging. The default is account-replicator.
+Label used when logging. The default is container-replicator.
 .IP \fBlog_facility\fR 
 Syslog log facility. The default is LOG_LOCAL0.
 .IP \fBlog_level\fR 
-ogging level. The default is INFO.
+Logging level. The default is INFO.
 .IP \fBvm_test_mode\fR 
 Indicates that you are using a VM environment. The default is no.
 .IP \fBper_diff\fR 
@@ -155,58 +159,75 @@ The default is 1000.
 .IP \fBconcurrency\fR 
 Number of replication workers to spawn. The default is 8.
 .IP \fBrun_pause\fR 
-Time in seconds to wait between replication passes. The default is 10.
-.IP \fBerror_suppression_interval\fR 
-How long without an error before a node's error count is reset. This will also be how long before a node is re-enabled after suppression is triggered. 
-The default is 60 seconds. 
-.IP \fBerror_suppression_limit\fR 
-How many errors can accumulate before a node is temporarily ignored. The default 
-is 10 seconds. 
+Time in seconds to wait between replication passes. The default is 30.
 .IP \fBnode_timeout\fR 
 Request timeout to external services. The default is 10 seconds. 
 .IP \fBconn_timeout\fR 
 Connection timeout to external services. The default is 0.5 seconds. 
 .IP \fBreclaim_age\fR 
-Time elapsed in seconds before an account can be reclaimed. The default is 
+Time elapsed in seconds before an container can be reclaimed. The default is 
 604800 seconds. 
 .RE
 
 
-
 .RS 0
-.IP "\fB[account-auditor]\fR"
+.IP "\fB[container-updater]\fR"
 .RE
 .RS 3
 .IP \fBlog_name\fR 
-Label used when logging. The default is account-auditor.
+Label used when logging. The default is container-updater.
 .IP \fBlog_facility\fR 
 Syslog log facility. The default is LOG_LOCAL0.
 .IP \fBlog_level\fR 
 Logging level. The default is INFO.
 .IP \fBinterval\fR 
-Will audit, at most, 1 account per device per interval. The default is 1800 seconds. 
-.RE
-
-
-
-.RS 0
-.IP "\fB[account-reaper]\fR"
-.RE
-.RS 3
-.IP \fBlog_name\fR 
-Label used when logging. The default is account-reaper.
-.IP \fBlog_facility\fR 
-Syslog log facility. The default is LOG_LOCAL0.
-.IP \fBlog_level\fR 
-Logging level. The default is INFO.
+Minimum time for a pass to take. The default is 300 seconds. 
 .IP \fBconcurrency\fR 
-Number of reaper workers to spawn. The default is 25. 
-.IP \fBinterval\fR 
-Minimum time for a pass to take. The default is 3600 seconds. 
+Number of reaper workers to spawn. The default is 4. 
 .IP \fBnode_timeout\fR 
-Request timeout to external services. The default is 10 seconds. 
+Request timeout to external services. The default is 3 seconds. 
 .IP \fBconn_timeout\fR 
 Connection timeout to external services. The default is 0.5 seconds. 
+.IP \fBslowdown = 0.01\fR
+Slowdown will sleep that amount between containers. The default is 0.01 seconds. 
+.IP \fBaccount_suppression_time\fR
+Seconds to suppress updating an account that has generated an error. The default is 60 seconds.
+.RE
+.PD
+
+
+.RS 0
+.IP "\fB[container-auditor]\fR"
+.RE
+.RS 3
+.IP \fBlog_name\fR 
+Label used when logging. The default is container-auditor.
+.IP \fBlog_facility\fR 
+Syslog log facility. The default is LOG_LOCAL0.
+.IP \fBlog_level\fR 
+Logging level. The default is INFO.
+.IP \fBinterval\fR 
+Will audit, at most, 1 container per device per interval. The default is 1800 seconds. 
+.RE
+
+
+
+.RS 0
+.IP "\fB[container-sync]\fR"
+.RE
+.RS 3
+.IP \fBlog_name\fR 
+Label used when logging. The default is container-sync.
+.IP \fBlog_facility\fR 
+Syslog log facility. The default is LOG_LOCAL0.
+.IP \fBlog_level\fR 
+Logging level. The default is INFO.
+.IP \fBsync_proxy\fR
+If you need to use an HTTP Proxy, set it here; defaults to no proxy.
+.IP \fBinterval\fR 
+Will audit, at most, each container once per interval. The default is 300 seconds. 
+.IP \fBcontainer_time\fR
+Maximum amount of time to spend syncing each container per pass. The default is 60 seconds.
 .RE
 .PD
 
@@ -215,7 +236,7 @@ Connection timeout to external services. The default is 0.5 seconds.
  
 .SH DOCUMENTATION
 .LP
-More indepth documentation about the swift-account-server and
+More in depth documentation about the swift-container-server and
 also Openstack-Swift as a whole can be found at 
 .BI http://swift.openstack.org/admin_guide.html 
 and 
@@ -223,6 +244,6 @@ and
 
 
 .SH "SEE ALSO"
-.BR swift-account-server(1),
+.BR swift-container-server(1),
 
 

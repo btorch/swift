@@ -35,7 +35,7 @@
 This is the configuration file used by the proxy server and other proxy middlewares.
 
 The configuration file follows the python-pastedeploy syntax. The file is divided
-into sections, which are encloused by square brackets. Each section will contain a 
+into sections, which are enclosed by square brackets. Each section will contain a 
 certain number of key/value parameters which are described later. 
 
 Any line that begins with a '#' symbol is ignored. 
@@ -53,7 +53,7 @@ are acceptable within this section.
 
 .IP "\fBbind_ip\fR"
 IP address the proxy server should bind to. The default is 0.0.0.0 which will make 
-it bind to all avaible addresses.
+it bind to all available addresses.
 .IP "\fBbind_port\fR" 
 TCP port the proxy server should bind to. The default is 80. 
 .IP \fBbacklog\fR 
@@ -101,13 +101,13 @@ cache ratelimit tempauth proxy-server"\fR
 .RS 0
 Any section that has its name prefixed by "filter:" indicates a filter section.
 Filters are used to specify configuration parameters for specific swift middlewares.
-Below are the filters avaiable and respective acceptable parameters. 
+Below are the filters available and respective acceptable parameters. 
 .IP "\fB[filter:healthcheck]\fR"
 .RE
 .RS 3
 .IP "\fBuse\fR"
-Entry point for paste.deploy for the healthcheck middleware. This is the egg URI. The default
-is \fBegg:swift#healthcheck\fR.
+Entry point for paste.deploy for the healthcheck middleware. This is the reference to the installed python egg. 
+The default is \fBegg:swift#healthcheck\fR.
 .RE
 
 
@@ -116,8 +116,8 @@ is \fBegg:swift#healthcheck\fR.
 .RE
 .RS 3
 .IP \fBuse\fR 
-Entry point for paste.deploy for the tempauth middleware. This is the egg URI. The default
-is \fBegg:swift#tempauth\fR.
+Entry point for paste.deploy for the tempauth middleware. This is the reference to the installed python egg. 
+The default is \fBegg:swift#tempauth\fR.
 .IP "\fBset log_name\fR"
 Label used when logging. The default is tempauth.
 .IP "\fBset log_facility\fR"
@@ -170,8 +170,8 @@ Here are example entries, required for running the tests:
 .RE
 .RS 3
 .IP \fBuse\fR
-Entry point for paste.deploy for the healthcheck middleware. This is the egg URI. The default
-is \fBegg:swift#healthcheck\fR.
+Entry point for paste.deploy for the healthcheck middleware. This is the reference to the installed python egg. 
+The default is \fBegg:swift#healthcheck\fR.
 .IP "\fBset log_name\fR"
 Label used when logging. The default is healthcheck.
 .IP "\fBset log_facility\fR"
@@ -192,8 +192,8 @@ Caching middleware that manages caching in swift.
 
 .RS 3
 .IP \fBuse\fR
-Entry point for paste.deploy for the memcache middleware. This is the egg URI. The default
-is \fBegg:swift#memcache\fR.
+Entry point for paste.deploy for the memcache middleware. This is the reference to the installed python egg. 
+The default is \fBegg:swift#memcache\fR.
 .IP "\fBset log_name\fR"
 Label used when logging. The default is memcache.
 .IP "\fBset log_facility\fR"
@@ -217,8 +217,8 @@ Rate limits requests on both an Account and Container level.  Limits are configu
 
 .RS 3
 .IP \fBuse\fR
-Entry point for paste.deploy for the ratelimit middleware. This is the egg URI. The default
-is \fBegg:swift#ratelimit\fR.
+Entry point for paste.deploy for the ratelimit middleware. This is the reference to the installed python egg. 
+The default is \fBegg:swift#ratelimit\fR.
 .IP "\fBset log_name\fR"
 Label used when logging. The default is ratelimit.
 .IP "\fBset log_facility\fR"
@@ -270,8 +270,8 @@ Middleware that translates container and account parts of a domain topath param
 
 .RS 3
 .IP \fBuse\fR
-Entry point for paste.deploy for the domain_remap middleware. This is the egg URI. The default
-is \fBegg:swift#domain_remap\fR.
+Entry point for paste.deploy for the domain_remap middleware. This is the reference to the installed python egg. 
+The default is \fBegg:swift#domain_remap\fR.
 .IP "\fBset log_name\fR"
 Label used when logging. The default is domain_remap.
 .IP "\fBset log_facility\fR"
@@ -301,8 +301,8 @@ by this middleware. Defaults to 'AUTH'.
 .RE
 .RS 3
 .IP \fBuse\fR
-Entry point for paste.deploy for the catch_errors middleware. This is the egg URI. The default
-is \fBegg:swift#catch_errors\fR.
+Entry point for paste.deploy for the catch_errors middleware. This is the reference to the installed python egg. 
+The default is \fBegg:swift#catch_errors\fR.
 .IP "\fBset log_name\fR"
 Label used when logging. The default is catch_errors.
 .IP "\fBset log_facility\fR"
@@ -323,8 +323,8 @@ Note: this middleware requires python-dnspython
 
 .RS 3
 .IP \fBuse\fR
-Entry point for paste.deploy for the cname_lookup middleware. This is the egg URI. The default
-is \fBegg:swift#cname_lookup\fR.
+Entry point for paste.deploy for the cname_lookup middleware. This is the reference to the installed python egg. 
+The default is \fBegg:swift#cname_lookup\fR.
 .IP "\fBset log_name\fR"
 Label used when logging. The default is cname_lookup.
 .IP "\fBset log_facility\fR"
@@ -350,8 +350,8 @@ Note: Put staticweb just after your auth filter(s) in the pipeline
 
 .RS 3
 .IP \fBuse\fR
-Entry point for paste.deploy for the staticweb middleware. This is the egg URI. The default
-is \fBegg:swift#staticweb\fR.
+Entry point for paste.deploy for the staticweb middleware. This is the reference to the installed python egg. 
+The default is \fBegg:swift#staticweb\fR.
 .IP \fBcache_timeout\fR
 Seconds to cache container x-container-meta-web-* header values. The default is 300 seconds.
 .IP "\fBset log_name\fR"
@@ -381,8 +381,8 @@ Logging level. The default is INFO.
 This is indicated by section name [app:proxy-server]. Below are the parameters
 that are acceptable within this section.
 .IP \fBuse\fR
-Entry point for paste.deploy for the proxy server. This is the egg URI. The default
-is \fBegg:swift#proxy\fR.
+Entry point for paste.deploy for the proxy server. This is the reference to the installed python egg. 
+The default is \fBegg:swift#proxy\fR.
 .IP "\fBset log_name\fR 
 Label used when logging. The default is proxy-server.
 .IP "\fBset log_facility\fR 
@@ -435,7 +435,7 @@ will be automatically created. The default is set to false.
  
 .SH DOCUMENTATION
 .LP
-More indepth documentation about the swift-proxy-server and
+More in depth documentation about the swift-proxy-server and
 also Openstack-Swift as a whole can be found at 
 .BI http://swift.openstack.org/admin_guide.html 
 and 
