@@ -11,10 +11,7 @@ Build-Depends: debhelper (>= 7.0.50~),
  python-openssl,
  python-setuptools,
  python-simplejson,
- python-xattr,
- python-netifaces,
  python-nose,
- python-pastedeploy,
  python-sphinx (>= 1.0)
 Standards-Version: 3.9.1
 XS-Python-Version: >= 2.6
@@ -29,12 +26,7 @@ Section: python
 Depends: ${python:Depends}, ${misc:Depends},
  python-openssl,
  python-setuptools,
- python-pastedeploy,
  python-simplejson,
- python-xattr,
- python-netifaces,
- python-greenlet (>= 0.3.1),
- python-eventlet (>= 0.9.8),
  python-python-swiftclient,
 Provides: ${python:Provides}
 Description: A distributed virtual object store (python libraries)
